@@ -1,6 +1,7 @@
 package com.datascience.shop.service;
 
 import com.datascience.shop.dao.DaoException;
+import com.datascience.shop.dao.ItemDaoImpl;
 import com.datascience.shop.entity.Item;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -9,12 +10,25 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ItemService {
-    private final ItemDao itemDao;
-    private static final Logger logger = LoggerFactory.getLogger(ItemService.class);
+    private ItemDao itemDao;
+            //=new ItemDaoImpl()    ;
 
+    private static final Logger logger = LoggerFactory.getLogger(ItemService.class);
+//    xml ругался, что нет конструктора. добавила без параметров
+//    public ItemService(){
+  //      this.itemDao=new ItemDaoImpl();    }
+
+/*    public void setItemDao(ItemDao itemDao) {
+        this.itemDao = itemDao;
+    }
+*/
+
+
+  //убиваю эти строки при введении бина
     public ItemService(ItemDao itemDao) {
         this.itemDao = itemDao;
     }
+
 
     public List<Item> findAll() throws ServiceException {
         try {
@@ -47,4 +61,6 @@ public class ItemService {
             }
         }
     }
+
+
 }

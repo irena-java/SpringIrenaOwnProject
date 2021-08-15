@@ -21,12 +21,21 @@ public class AddBasketController implements Controller {
     private final UserService userService = new UserService(new UserDaoImpl());
     private final BasketService basketService = new BasketService(new BasketDaoImpl());
     private static final Logger logger = LoggerFactory.getLogger(AddBasketController.class);
+    private final ItemService itemService;
+
+    public AddBasketController(ItemService itemService) {
+        this.itemService = itemService;
+    }
 
     @Override
     public ControllerResultDto execute(HttpServletRequest req, HttpServletResponse resp) {
         try {
             String itemId = req.getParameter("itemId");
-            ItemService itemService = new ItemService(new ItemDaoImpl());
+ /*убиваю эти строки при введении бина, меняю без параметров
+            ItemService itemService = new ItemService(new ItemDaoImpl());*/
+            //ItemService itemService;
+            //= new ItemService();
+
             Item item = itemService.findById(Integer.parseInt(itemId));
             Integer userId = (Integer) req.getSession().getAttribute("userId");
             User user = userService.findById(userId);

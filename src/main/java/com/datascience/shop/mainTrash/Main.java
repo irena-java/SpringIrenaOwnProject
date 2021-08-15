@@ -136,10 +136,15 @@ public class Main {
 
 
 
-
+/*убиваю єти строки при введении бина
             ItemService itemService=new ItemService(new ItemDaoImpl());
-            List<Item> items17=itemService.findAll();
-            System.out.println(items17.toString());
+ */
+            ItemService itemService;
+            //=new ItemService();
+
+
+  //          List<Item> items17=itemService.findAll();
+    //        System.out.println(items17.toString());
 
         UserDaoImpl userDaoImpl =new UserDaoImpl();
         User user1= userDaoImpl.findById(8);

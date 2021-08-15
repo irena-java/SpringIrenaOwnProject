@@ -1,5 +1,8 @@
 package com.datascience.shop.controller;
 
+import com.datascience.shop.dao.ItemDaoImpl;
+import com.datascience.shop.service.ItemService;
+
 import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.Map;
@@ -14,7 +17,11 @@ public class ControllerFactory {
         controllerMap.put("GET/main", new ShowPageController("main"));
         controllerMap.put("GET/client", new ShowPageController("login"));
         controllerMap.put("GET/items", new ShowAllItemsController());
-        controllerMap.put("GET/addToBasket", new AddBasketController());
+
+        //controllerMap.put("GET/addToBasket", new AddBasketController());
+        controllerMap.put("GET/addToBasket", new AddBasketController(new ItemService(new ItemDaoImpl())));
+
+
         controllerMap.put("GET/basket", new ShowBasketController());
         controllerMap.put("GET/deleteFromBasket", new DeleteFromBasketController());
         controllerMap.put("GET/deleteUser", new DeleteUserController());
