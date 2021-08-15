@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.sql.SQLException;
 
 @WebServlet("/datascience-shop/*")
 public class DispatcherServlet extends HttpServlet {
@@ -26,7 +27,13 @@ public class DispatcherServlet extends HttpServlet {
 
     @Override
     protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException {
-        Controller controller = controllerFactory.getController(req);
+        Controller controller = null;
+        try {
+            controller = controllerFactory.getController(req);
+        } catch (SQLException e) {
+            logger.error("Failed to get controller" + e);
+            throw new ServletException("Failed to get controller" + e);
+        }
         try {
             ControllerResultDto result = controller.execute(req, resp);
             doForwardOrRedirect(result, req, resp);

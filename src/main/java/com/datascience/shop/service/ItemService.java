@@ -5,17 +5,30 @@ import com.datascience.shop.dao.ItemDaoImpl;
 import com.datascience.shop.entity.Item;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Service
 public class ItemService {
-    private ItemDao itemDao;
-            //=new ItemDaoImpl()    ;
+    //private final ItemDao itemDao;
+
+    private  final ItemDao itemDao;
+    //=new ItemDaoImpl()    ;
 
     private static final Logger logger = LoggerFactory.getLogger(ItemService.class);
+
+    //@Autowired
+    public ItemService(ItemDao itemDao) {
+        this.itemDao = itemDao;
+    }
+
+
+
 //    xml ругался, что нет конструктора. добавила без параметров
-//    public ItemService(){
+ //    public ItemService(){
   //      this.itemDao=new ItemDaoImpl();    }
 
 /*    public void setItemDao(ItemDao itemDao) {
@@ -24,11 +37,11 @@ public class ItemService {
 */
 
 
-  //убиваю эти строки при введении бина
-    public ItemService(ItemDao itemDao) {
+  /*убиваю эти строки при введении бина/ УБИЛА ЕЩЕ РАЗ
+      public ItemService(ItemDao itemDao) {
         this.itemDao = itemDao;
     }
-
+*/
 
     public List<Item> findAll() throws ServiceException {
         try {

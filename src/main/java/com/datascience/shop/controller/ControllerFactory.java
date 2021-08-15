@@ -1,25 +1,41 @@
 package com.datascience.shop.controller;
 
+import com.datascience.shop.config.ApplicationConfig;
 import com.datascience.shop.dao.ItemDaoImpl;
 import com.datascience.shop.service.ItemService;
+import com.datascience.shop.service.ServiceException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.sql.DataSource;
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 
-public class ControllerFactory {
 
+
+public class ControllerFactory {
+    private static final Logger logger = LoggerFactory.getLogger(DeleteUserController.class);
     private Map<String, Controller> controllerMap = new HashMap<>();
 
-    private void init() {
+    private void init() throws SQLException {
         controllerMap.put("GET/profile", new ShowPageController("profile"));
         controllerMap.put("GET/login", new ShowPageController("login"));
         controllerMap.put("GET/main", new ShowPageController("main"));
         controllerMap.put("GET/client", new ShowPageController("login"));
         controllerMap.put("GET/items", new ShowAllItemsController());
 
-        //controllerMap.put("GET/addToBasket", new AddBasketController());
-        controllerMap.put("GET/addToBasket", new AddBasketController(new ItemService(new ItemDaoImpl())));
+        //?? controllerMap.put("GET/addToBasket", new AddBasketController());
+        try {
+            ApplicationConfig applicationConfig=new ApplicationConfig();
+            controllerMap.put("GET/addToBasket", new AddBasketController(new ItemService(new ItemDaoImpl(applicationConfig.getDataSource()))));
+        }
+        catch (Exception e) {
+            logger.error("Failed dataSource" + e);
+            throw new SQLException("Failed dataSource");
+        }
+
 
 
         controllerMap.put("GET/basket", new ShowBasketController());
@@ -30,9 +46,14 @@ public class ControllerFactory {
         controllerMap.put("POST/login", new LoginController());
     }
 
-    public Controller getController(HttpServletRequest request) {
+    public Controller getController(HttpServletRequest request) throws SQLException{
         if (controllerMap.isEmpty()) {
-            init();
+            try {
+                init();
+            } catch (SQLException e) {
+                logger.error("Failed dataSource" + e);
+                throw new SQLException("Failed dataSource");
+            }
         }
         return controllerMap.get(request.getMethod() + request.getPathInfo());
     }

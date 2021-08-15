@@ -2,6 +2,7 @@
 package com.datascience.shop.mainTrash;
 
 import com.datascience.shop.Rates;
+import com.datascience.shop.config.ApplicationConfig;
 import com.datascience.shop.dao.*;
 import com.datascience.shop.entity.Basket;
 import com.datascience.shop.entity.Item;
@@ -12,10 +13,12 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 
+import javax.sql.DataSource;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.sql.Date;
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.*;
 
@@ -155,7 +158,10 @@ public class Main {
         Basket basket1= basketDaoImpl.findById(user1);
 //        System.out.println(basket1.toString());
 
-        ItemDaoImpl itemDaoImpl =new ItemDaoImpl();
+            ApplicationConfig applicationConfig=new ApplicationConfig();
+
+        ItemDaoImpl itemDaoImpl =new ItemDaoImpl(applicationConfig.getDataSource());
+
         List<Item> items=new ArrayList<>();
         items= itemDaoImpl.findAll();
         System.out.println(items.toString());
@@ -209,7 +215,7 @@ public class Main {
             System.out.println();
             System.out.println(userList.toString());
 
-        } catch (DaoException | ServiceException  e) {
+        } catch (DaoException | ServiceException e) {
             e.printStackTrace();
         }
 
