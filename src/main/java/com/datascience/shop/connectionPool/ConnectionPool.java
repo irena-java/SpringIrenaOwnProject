@@ -27,7 +27,7 @@ public class ConnectionPool {
 
         public void init() throws ConnectionPoolException{
         try {
-            File file = new File("C:/Users/Ira/IdeaProjects/irena.ownproject/src/main/resources/config.properties");
+            File file = new File("C:/Users/Ira/IdeaProjects/own_proect/src/main/resources/application.properties");
             Properties properties = new Properties();
             properties.load(new FileReader(file));
             min = Integer.parseInt(properties.getProperty("connection.pool.min"));
