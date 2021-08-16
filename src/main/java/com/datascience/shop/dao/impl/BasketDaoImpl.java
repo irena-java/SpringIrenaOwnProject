@@ -51,9 +51,6 @@ public class BasketDaoImpl implements BasketDao {
             "INNER JOIN job_types j ON i.job_type_id=j.id " +
             "WHERE u.id = ?";
 
-    public BasketDaoImpl() {
-    }
-
     public Basket insertOrUpdate(Basket basket) throws DaoException {
         BasketDaoImpl basketDaoImpl = new BasketDaoImpl();
         Basket basket1 = basketDaoImpl.findById(basket.getClient());

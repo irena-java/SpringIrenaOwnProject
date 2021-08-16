@@ -36,7 +36,6 @@ public class ItemDaoImpl implements ItemDao {
     private static final String SELECT_ALL = SELECT_TEMPLATE + " ORDER BY i.id";
     private static final String SELECT_BY_ID = SELECT_TEMPLATE + " WHERE i.id=?";
 
-
     public int getDataScienceSectionId(String dataScienceSection) throws DaoException {
         try (Connection connection = connectionPool.get();
              PreparedStatement preparedStatement = connection.prepareStatement(GET_DATA_SCIENCE_SECTION_ID_BY_NAME)) {
