@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+//@org.springframework.stereotype.Controller
 public class LoginController implements Controller {
     private UserService userService = new UserService(new UserDaoImpl());
     public static ConnectionPool connectionPool = MySpecialContext.get();
