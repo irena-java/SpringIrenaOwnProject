@@ -1,14 +1,12 @@
 package com.datascience.shop.controller;
 
 import com.datascience.shop.config.ApplicationConfig;
-import com.datascience.shop.dao.ItemDaoImpl;
+import com.datascience.shop.dao.impl.ItemDaoImpl;
 import com.datascience.shop.service.ItemService;
-import com.datascience.shop.service.ServiceException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.sql.DataSource;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;

@@ -2,7 +2,7 @@ package com.datascience.shop.controller;
 
 import com.datascience.shop.MySpecialContext;
 import com.datascience.shop.connectionPool.ConnectionPool;
-import com.datascience.shop.dao.UserDaoImpl;
+import com.datascience.shop.dao.impl.UserDaoImpl;
 import com.datascience.shop.entity.User;
 import com.datascience.shop.service.ServiceException;
 import com.datascience.shop.service.UserService;

@@ -1,6 +1,7 @@
 package com.datascience.shop.service;
 
 import com.datascience.shop.dao.DaoException;
+import com.datascience.shop.dao.UserDao;
 import com.datascience.shop.entity.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

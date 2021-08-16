@@ -1,6 +1,5 @@
 package com.datascience.shop.controller;
 
-import com.datascience.shop.dao.ItemDaoImpl;
 import com.datascience.shop.entity.Item;
 import com.datascience.shop.service.ItemService;
 import com.datascience.shop.service.ServiceException;

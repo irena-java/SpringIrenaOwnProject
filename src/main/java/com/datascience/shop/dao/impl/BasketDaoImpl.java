@@ -1,9 +1,10 @@
-package com.datascience.shop.dao;
+package com.datascience.shop.dao.impl;
 
+import com.datascience.shop.dao.BasketDao;
+import com.datascience.shop.dao.DaoException;
 import com.datascience.shop.entity.Basket;
 import com.datascience.shop.entity.Item;
 import com.datascience.shop.entity.User;
-import com.datascience.shop.service.BasketDao;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -48,7 +49,7 @@ public class BasketDaoImpl implements BasketDao {
             "INNER JOIN job_types j ON i.job_type_id=j.id " +
             "WHERE u.id = ?";
 
-    public Basket insertOrUpdate(Basket basket) throws DaoException{
+    public Basket insertOrUpdate(Basket basket) throws DaoException {
         BasketDaoImpl basketDaoImpl = new BasketDaoImpl();
         Basket basket1 = basketDaoImpl.findById(basket.getClient());
         if (basket1 != null) {

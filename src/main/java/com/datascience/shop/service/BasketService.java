@@ -1,5 +1,6 @@
 package com.datascience.shop.service;
 
+import com.datascience.shop.dao.BasketDao;
 import com.datascience.shop.dao.DaoException;
 import com.datascience.shop.entity.Basket;
 import com.datascience.shop.entity.User;

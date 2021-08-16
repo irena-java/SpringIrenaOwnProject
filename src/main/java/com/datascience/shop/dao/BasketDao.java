@@ -1,4 +1,4 @@
-package com.datascience.shop.service;
+package com.datascience.shop.dao;
 
 import com.datascience.shop.dao.DaoException;
 import com.datascience.shop.entity.Basket;

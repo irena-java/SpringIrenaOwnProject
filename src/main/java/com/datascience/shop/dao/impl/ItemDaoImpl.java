@@ -1,7 +1,8 @@
-package com.datascience.shop.dao;
+package com.datascience.shop.dao.impl;
 
+import com.datascience.shop.dao.DaoException;
+import com.datascience.shop.dao.ItemDao;
 import com.datascience.shop.entity.Item;
-import com.datascience.shop.service.ItemDao;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
@@ -42,6 +43,7 @@ public class ItemDaoImpl implements ItemDao {
 
                 this.dataSource = dataSource;
     }
+
 
     public int getDataScienceSectionId(String dataScienceSection) throws DaoException {
         try (Connection connection = dataSource.getConnection();

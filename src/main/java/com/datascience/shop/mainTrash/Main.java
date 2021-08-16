@@ -4,6 +4,9 @@ package com.datascience.shop.mainTrash;
 import com.datascience.shop.Rates;
 import com.datascience.shop.config.ApplicationConfig;
 import com.datascience.shop.dao.*;
+import com.datascience.shop.dao.impl.BasketDaoImpl;
+import com.datascience.shop.dao.impl.ItemDaoImpl;
+import com.datascience.shop.dao.impl.UserDaoImpl;
 import com.datascience.shop.entity.Basket;
 import com.datascience.shop.entity.Item;
 import com.datascience.shop.entity.User;
@@ -13,12 +16,10 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 
-import javax.sql.DataSource;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.sql.Date;
-import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.*;
 

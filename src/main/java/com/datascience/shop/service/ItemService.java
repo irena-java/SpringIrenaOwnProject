@@ -1,11 +1,10 @@
 package com.datascience.shop.service;
 
 import com.datascience.shop.dao.DaoException;
-import com.datascience.shop.dao.ItemDaoImpl;
+import com.datascience.shop.dao.ItemDao;
 import com.datascience.shop.entity.Item;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;

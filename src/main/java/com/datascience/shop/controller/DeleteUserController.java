@@ -1,7 +1,7 @@
 package com.datascience.shop.controller;
 
-import com.datascience.shop.dao.BasketDaoImpl;
-import com.datascience.shop.dao.UserDaoImpl;
+import com.datascience.shop.dao.impl.BasketDaoImpl;
+import com.datascience.shop.dao.impl.UserDaoImpl;
 import com.datascience.shop.entity.Basket;
 import com.datascience.shop.entity.User;
 import com.datascience.shop.service.BasketService;

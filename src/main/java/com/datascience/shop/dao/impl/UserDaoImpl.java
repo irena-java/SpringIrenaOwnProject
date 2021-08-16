@@ -1,8 +1,9 @@
-package com.datascience.shop.dao;
+package com.datascience.shop.dao.impl;
 
+import com.datascience.shop.dao.DaoException;
+import com.datascience.shop.dao.UserDao;
 import com.datascience.shop.entity.User;
 import com.datascience.shop.entity.UserRole;
-import com.datascience.shop.service.UserDao;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
