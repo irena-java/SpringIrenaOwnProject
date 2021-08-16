@@ -12,12 +12,12 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.datascience.shop.controller.LoginController.connectionPool;
+
 //import static com.datascience.shop.controller.LoginController.connectionPool;
 
 @Repository
 public class ItemDaoImpl implements ItemDao {
-    private final DataSource dataSource;
-
     private static final Logger logger = LoggerFactory.getLogger(ItemDaoImpl.class);
     private static final String GET_DATA_SCIENCE_SECTION_ID_BY_NAME = "SELECT id FROM data_science_sections WHERE data_science_section=?";
     private static final String GET_DATA_SCIENCE_DIRECTION_ID_BY_NAME = "SELECT id FROM data_science_directions WHERE data_science_direction=?";
@@ -39,14 +39,10 @@ public class ItemDaoImpl implements ItemDao {
     private static final String SELECT_ALL = SELECT_TEMPLATE + " ORDER BY i.id";
     private static final String SELECT_BY_ID = SELECT_TEMPLATE + " WHERE i.id=?";
 
-    public ItemDaoImpl(DataSource dataSource) {
-
-                this.dataSource = dataSource;
-    }
 
 
     public int getDataScienceSectionId(String dataScienceSection) throws DaoException {
-        try (Connection connection = dataSource.getConnection();
+        try (Connection connection = connectionPool.get();
              PreparedStatement preparedStatement = connection.prepareStatement(GET_DATA_SCIENCE_SECTION_ID_BY_NAME)) {
             preparedStatement.setString(1, dataScienceSection);
             preparedStatement.executeQuery();
@@ -63,7 +59,7 @@ public class ItemDaoImpl implements ItemDao {
     }
 
     public int getDataScienceDirectionId(String dataScienceDirection) throws DaoException {
-        try (Connection connection = dataSource.getConnection();
+        try (Connection connection = connectionPool.get();
              PreparedStatement preparedStatement = connection.prepareStatement(GET_DATA_SCIENCE_DIRECTION_ID_BY_NAME)) {
             preparedStatement.setString(1, dataScienceDirection);
             preparedStatement.executeQuery();
@@ -80,7 +76,7 @@ public class ItemDaoImpl implements ItemDao {
     }
 
     public int getJobTypeId(String jobType) throws DaoException {
-        try (Connection connection = dataSource.getConnection();
+        try (Connection connection = connectionPool.get();
              PreparedStatement preparedStatement = connection.prepareStatement(GET_JOB_TYPES_ID_BY_NAME)) {
             preparedStatement.setString(1, jobType);
             preparedStatement.executeQuery();
@@ -97,7 +93,7 @@ public class ItemDaoImpl implements ItemDao {
     }
 
     public Integer create(Item item) throws DaoException {
-        try (Connection connection = dataSource.getConnection();
+        try (Connection connection = connectionPool.get();
              PreparedStatement preparedStatement = connection.prepareStatement(INSERT_SQL, Statement.RETURN_GENERATED_KEYS)) {
             preparedStatement.setInt(1, getDataScienceSectionId(item.getDataScienceSection()));
             preparedStatement.setInt(2, getDataScienceDirectionId(item.getDataScienceDirection()));
@@ -116,7 +112,7 @@ public class ItemDaoImpl implements ItemDao {
     }
 
     public void delete(Item item) throws DaoException {
-        try (Connection connection = dataSource.getConnection();
+        try (Connection connection = connectionPool.get();
              PreparedStatement preparedStatement = connection.prepareStatement("DELETE FROM items WHERE id=?")) {
             preparedStatement.setInt(1, item.getId());
             preparedStatement.execute();
@@ -129,7 +125,7 @@ public class ItemDaoImpl implements ItemDao {
 
     public List<Item> findAll() throws DaoException {
         List<Item> items = new ArrayList<>();
-        try (Connection connection = dataSource.getConnection();
+        try (Connection connection = connectionPool.get();
              Statement statement = connection.createStatement();
              ResultSet resultSet = statement.executeQuery(SELECT_ALL)) {
             while (resultSet.next()) {
@@ -152,7 +148,7 @@ public class ItemDaoImpl implements ItemDao {
     }
 
     public Item findById(Integer id) throws DaoException {
-        try (Connection connection = dataSource.getConnection();
+        try (Connection connection = connectionPool.get();
              PreparedStatement preparedStatement = connection.prepareStatement(SELECT_BY_ID)
         ) {
             preparedStatement.setInt(1, id);

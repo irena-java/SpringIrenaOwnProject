@@ -27,7 +27,7 @@ public class ControllerFactory {
         //?? controllerMap.put("GET/addToBasket", new AddBasketController());
         try {
             ApplicationConfig applicationConfig=new ApplicationConfig();
-            controllerMap.put("GET/addToBasket", new AddBasketController(new ItemService(new ItemDaoImpl(applicationConfig.getDataSource()))));
+            controllerMap.put("GET/addToBasket", new AddBasketController(new ItemService(new ItemDaoImpl())));
         }
         catch (Exception e) {
             logger.error("Failed dataSource" + e);

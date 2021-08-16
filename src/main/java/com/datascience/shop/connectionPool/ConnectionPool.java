@@ -1,9 +1,12 @@
 package com.datascience.shop.connectionPool;
 
+import com.datascience.shop.config.ApplicationConfig;
 import com.datascience.shop.utils.PostgresUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
+import javax.sql.DataSource;
 import java.io.File;
 import java.io.FileReader;
 import java.sql.*;
@@ -19,8 +22,10 @@ public class ConnectionPool {
     private int max;
     private int current;
     private static final Logger logger = LoggerFactory.getLogger(ConnectionPool.class);
+    private static AnnotationConfigApplicationContext ctx=new AnnotationConfigApplicationContext(ApplicationConfig.class);
 
-    public void init() throws ConnectionPoolException{
+
+        public void init() throws ConnectionPoolException{
         try {
             File file = new File("C:/Users/Ira/IdeaProjects/irena.ownproject/src/main/resources/config.properties");
             Properties properties = new Properties();
@@ -53,8 +58,16 @@ public class ConnectionPool {
     }
 
     private void addNewConnectionToQueue() throws ConnectionPoolException{
+//        DataSource dataSource;
         try {
-            Connection connection = PostgresUtils.getConnection();
+            //ApplicationConfig applicationConfig=new ApplicationConfig();
+            //DataSource dataSource=applicationConfig.getDataSource();
+            //Connection connection = dataSource.getConnection();
+
+
+            Connection connection=ctx.getBean(DataSource.class).getConnection();
+
+            //Connection connection = PostgresUtils.getConnection();
             queue.add(new ConnectionWrapper(connection));
         } catch (Exception e) {
             logger.error("Failed to add new connection to queue" + e);

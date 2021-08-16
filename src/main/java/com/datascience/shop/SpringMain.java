@@ -13,6 +13,9 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import javax.sql.DataSource;
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.List;
 
@@ -35,9 +38,12 @@ public class SpringMain {
             final User userRrr=userService.findByUserName("rrr");
             System.out.println(userRrr);
 
-            final BasketService basketService=ctx.getBean(BasketService.class);
+
+          final BasketService basketService=ctx.getBean(BasketService.class);
             final Basket basketRrr=basketService.findOrCreateForUser(userRrr);
-            System.out.println(basketRrr);
+            System.out.println("basket for RRR - "+basketRrr);
+
+
 
         }
     }

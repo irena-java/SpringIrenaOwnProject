@@ -18,8 +18,8 @@ import java.util.Iterator;
 import java.util.List;
 
 public class DeleteFromBasketController implements Controller {
-    ApplicationConfig applicationConfig=new ApplicationConfig();
-    private  UserService userService = new UserService(new UserDaoImpl(applicationConfig.getDataSource()));
+
+    private  UserService userService = new UserService(new UserDaoImpl());
 
     private final BasketService basketService = new BasketService(new BasketDaoImpl());
 

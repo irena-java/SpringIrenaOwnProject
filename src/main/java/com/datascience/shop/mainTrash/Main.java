@@ -119,7 +119,7 @@ public class Main {
 
 */
             ApplicationConfig applicationConfig=new ApplicationConfig();
-             UserService userService = new UserService(new UserDaoImpl(applicationConfig.getDataSource()));
+             UserService userService = new UserService(new UserDaoImpl());
             //UserService userService=new UserService(new UserDaoImpl());
             User user777=userService.findById(9);
             BasketService basketService777=new BasketService(new BasketDaoImpl());
@@ -153,7 +153,7 @@ public class Main {
     //        System.out.println(items17.toString());
 
 
-        UserDaoImpl userDaoImpl =new UserDaoImpl(applicationConfig.getDataSource());
+        UserDaoImpl userDaoImpl =new UserDaoImpl();
         User user1= userDaoImpl.findById(8);
 
 
@@ -164,7 +164,7 @@ public class Main {
 
 
 
-        ItemDaoImpl itemDaoImpl =new ItemDaoImpl(applicationConfig.getDataSource());
+        ItemDaoImpl itemDaoImpl =new ItemDaoImpl();
 
         List<Item> items=new ArrayList<>();
         items= itemDaoImpl.findAll();
@@ -259,7 +259,7 @@ public class Main {
         User user = new User(name, userRole, clientInn, country, contactInfo, password);
 
         ApplicationConfig applicationConfig=new ApplicationConfig();
-        UserDaoImpl userDaoImpl = new UserDaoImpl(applicationConfig.getDataSource());
+        UserDaoImpl userDaoImpl = new UserDaoImpl();
         int i = 0;
         try {
             i = userDaoImpl.create(user);

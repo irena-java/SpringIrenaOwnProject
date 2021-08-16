@@ -16,8 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 public class LoginController implements Controller {
-    ApplicationConfig applicationConfig=new ApplicationConfig();
-    private  UserService userService = new UserService(new UserDaoImpl(applicationConfig.getDataSource()));
+    private  UserService userService = new UserService(new UserDaoImpl());
     //private final UserService userService = new UserService(new UserDaoImpl());
     public static ConnectionPool connectionPool = MySpecialContext.get();
     private static final Logger logger = LoggerFactory.getLogger(LoginController.class);

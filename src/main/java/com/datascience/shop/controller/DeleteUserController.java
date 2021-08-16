@@ -19,8 +19,7 @@ import java.sql.SQLException;
 import static com.datascience.shop.controller.LoginController.connectionPool;
 
 public class DeleteUserController implements Controller {
-    ApplicationConfig applicationConfig=new ApplicationConfig();
-    private  UserService userService = new UserService(new UserDaoImpl(applicationConfig.getDataSource()));
+    private  UserService userService = new UserService(new UserDaoImpl());
     //private final UserService userService = new UserService(new UserDaoImpl());
     private final BasketService basketService = new BasketService(new BasketDaoImpl());
     private static final Logger logger = LoggerFactory.getLogger(DeleteUserController.class);
