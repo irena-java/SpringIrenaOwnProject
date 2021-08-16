@@ -7,6 +7,7 @@ import com.datascience.shop.entity.Item;
 import com.datascience.shop.entity.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Repository;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -16,7 +17,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 
 import static com.datascience.shop.controller.LoginController.connectionPool;
-
+@Repository
 public class BasketDaoImpl implements BasketDao {
     private static final Logger logger = LoggerFactory.getLogger(BasketDaoImpl.class);
     private static final String INSERT_SQL = "INSERT INTO baskets(user_id, item_id) VALUES(?, ?)";
@@ -48,6 +49,9 @@ public class BasketDaoImpl implements BasketDao {
             "INNER JOIN data_science_directions d ON i.data_science_direction_id=d.id " +
             "INNER JOIN job_types j ON i.job_type_id=j.id " +
             "WHERE u.id = ?";
+
+    public BasketDaoImpl() {
+    }
 
     public Basket insertOrUpdate(Basket basket) throws DaoException {
         BasketDaoImpl basketDaoImpl = new BasketDaoImpl();

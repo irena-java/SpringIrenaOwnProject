@@ -1,5 +1,6 @@
 package com.datascience.shop.controller;
 
+import com.datascience.shop.config.ApplicationConfig;
 import com.datascience.shop.dao.impl.BasketDaoImpl;
 import com.datascience.shop.dao.impl.UserDaoImpl;
 import com.datascience.shop.entity.Basket;
@@ -18,7 +19,9 @@ import java.sql.SQLException;
 import static com.datascience.shop.controller.LoginController.connectionPool;
 
 public class DeleteUserController implements Controller {
-    private final UserService userService = new UserService(new UserDaoImpl());
+    ApplicationConfig applicationConfig=new ApplicationConfig();
+    private  UserService userService = new UserService(new UserDaoImpl(applicationConfig.getDataSource()));
+    //private final UserService userService = new UserService(new UserDaoImpl());
     private final BasketService basketService = new BasketService(new BasketDaoImpl());
     private static final Logger logger = LoggerFactory.getLogger(DeleteUserController.class);
 

@@ -7,14 +7,19 @@ import com.datascience.shop.entity.UserRole;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Repository;
 
+import javax.sql.DataSource;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
 import static com.datascience.shop.controller.LoginController.connectionPool;
 
+@Repository
 public class UserDaoImpl implements UserDao {
+    private final DataSource dataSource;
+
     private static final Logger logger = LoggerFactory.getLogger(UserDaoImpl.class);
     private static final String USER_FIELD = "name,user_role_id,client_inn,country_id,contact_info,password";
     private static final String SELECT_TEMPLATE =
@@ -36,8 +41,12 @@ public class UserDaoImpl implements UserDao {
     private static final String GET_ROLE_ID_BY_NAME = "SELECT id FROM user_roles WHERE user_role=?";
     private static final String DELETE_USER_BY_ID = "DELETE FROM users WHERE id=?";
 
+    public UserDaoImpl(DataSource dataSource) {
+        this.dataSource = dataSource;
+    }
+
     public Integer create(User user) throws DaoException {
-        try (Connection connection = connectionPool.get();
+        try (Connection connection = dataSource.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(INSERT_SQL, Statement.RETURN_GENERATED_KEYS)) {
             preparedStatement.setString(1, user.getName());
             preparedStatement.setInt(2, getRoleId(user.getUserRole()));
@@ -65,7 +74,7 @@ public class UserDaoImpl implements UserDao {
     }
 
     public int getCountryId(String country) throws DaoException {
-        try (Connection connection = connectionPool.get();
+        try (Connection connection = dataSource.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(GET_COUNTRY_ID_BY_NAME)) {
             preparedStatement.setString(1, country);
             preparedStatement.executeQuery();
@@ -82,7 +91,7 @@ public class UserDaoImpl implements UserDao {
     }
 
     public int getRoleId(UserRole userRole) throws DaoException {
-        try (Connection connection = connectionPool.get();
+        try (Connection connection = dataSource.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(GET_ROLE_ID_BY_NAME)) {
             preparedStatement.setString(1, userRole.name());
             preparedStatement.executeQuery();
@@ -100,7 +109,7 @@ public class UserDaoImpl implements UserDao {
 
     public User findByUsername(String username) throws DaoException {
         try (
-                Connection connection = connectionPool.get();
+                Connection connection = dataSource.getConnection();
                 PreparedStatement preparedStatement = connection.prepareStatement(SELECT_BY_USER_NAME)
         ) {
             preparedStatement.setString(1, username);
@@ -123,7 +132,7 @@ public class UserDaoImpl implements UserDao {
     }
 
     public User findById(Integer id) throws DaoException {
-        try (Connection connection = connectionPool.get();
+        try (Connection connection = dataSource.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(SELECT_BY_ID)
         ) {
             preparedStatement.setInt(1, id);
@@ -160,7 +169,7 @@ public class UserDaoImpl implements UserDao {
 
     public List<User> findAll() throws DaoException{
         List<User> users = new ArrayList<>();
-        try (Connection connection = connectionPool.get();
+        try (Connection connection =dataSource.getConnection();
              Statement statement = connection.createStatement();
              ResultSet resultSet = statement.executeQuery(SELECT_ALL)) {
             while (resultSet.next()) {

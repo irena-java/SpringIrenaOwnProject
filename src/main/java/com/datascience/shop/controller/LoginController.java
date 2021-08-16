@@ -1,6 +1,7 @@
 package com.datascience.shop.controller;
 
 import com.datascience.shop.MySpecialContext;
+import com.datascience.shop.config.ApplicationConfig;
 import com.datascience.shop.connectionPool.ConnectionPool;
 import com.datascience.shop.dao.impl.UserDaoImpl;
 import com.datascience.shop.entity.User;
@@ -15,7 +16,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 public class LoginController implements Controller {
-    private final UserService userService = new UserService(new UserDaoImpl());
+    ApplicationConfig applicationConfig=new ApplicationConfig();
+    private  UserService userService = new UserService(new UserDaoImpl(applicationConfig.getDataSource()));
+    //private final UserService userService = new UserService(new UserDaoImpl());
     public static ConnectionPool connectionPool = MySpecialContext.get();
     private static final Logger logger = LoggerFactory.getLogger(LoginController.class);
 

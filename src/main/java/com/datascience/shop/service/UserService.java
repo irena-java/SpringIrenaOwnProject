@@ -5,10 +5,12 @@ import com.datascience.shop.dao.UserDao;
 import com.datascience.shop.entity.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Service;
 
 import java.sql.Connection;
 import java.util.List;
 
+@Service
 public class UserService {
     private final UserDao userDao;
     private static final Logger logger = LoggerFactory.getLogger(UserService.class);

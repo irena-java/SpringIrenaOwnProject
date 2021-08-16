@@ -12,7 +12,8 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 public class ShowAllUsersController implements Controller {
-    private final UserService userService = new UserService(new UserDaoImpl());
+    private UserService userService;
+            //= new UserService(new UserDaoImpl());
     private static final Logger logger = LoggerFactory.getLogger(ShowAllUsersController.class);
 
     @Override

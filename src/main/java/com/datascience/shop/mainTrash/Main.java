@@ -118,7 +118,9 @@ public class Main {
             //Map<String,Double> rr1=objectMapper.readValues(result,Map.class);
 
 */
-            UserService userService=new UserService(new UserDaoImpl());
+            ApplicationConfig applicationConfig=new ApplicationConfig();
+             UserService userService = new UserService(new UserDaoImpl(applicationConfig.getDataSource()));
+            //UserService userService=new UserService(new UserDaoImpl());
             User user777=userService.findById(9);
             BasketService basketService777=new BasketService(new BasketDaoImpl());
 
@@ -150,7 +152,8 @@ public class Main {
   //          List<Item> items17=itemService.findAll();
     //        System.out.println(items17.toString());
 
-        UserDaoImpl userDaoImpl =new UserDaoImpl();
+
+        UserDaoImpl userDaoImpl =new UserDaoImpl(applicationConfig.getDataSource());
         User user1= userDaoImpl.findById(8);
 
 
@@ -159,7 +162,7 @@ public class Main {
         Basket basket1= basketDaoImpl.findById(user1);
 //        System.out.println(basket1.toString());
 
-            ApplicationConfig applicationConfig=new ApplicationConfig();
+
 
         ItemDaoImpl itemDaoImpl =new ItemDaoImpl(applicationConfig.getDataSource());
 
@@ -254,7 +257,9 @@ public class Main {
 */
     private static User add_user(String name, UserRole userRole, String clientInn, String country, String contactInfo, String password) {
         User user = new User(name, userRole, clientInn, country, contactInfo, password);
-        UserDaoImpl userDaoImpl = new UserDaoImpl();
+
+        ApplicationConfig applicationConfig=new ApplicationConfig();
+        UserDaoImpl userDaoImpl = new UserDaoImpl(applicationConfig.getDataSource());
         int i = 0;
         try {
             i = userDaoImpl.create(user);

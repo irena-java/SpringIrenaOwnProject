@@ -6,10 +6,11 @@ import com.datascience.shop.entity.Basket;
 import com.datascience.shop.entity.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Service;
 
 import java.sql.Connection;
 import java.util.ArrayList;
-
+@Service
 public class BasketService {
     private final BasketDao basketDao;
     private static final Logger logger = LoggerFactory.getLogger(BasketService.class);

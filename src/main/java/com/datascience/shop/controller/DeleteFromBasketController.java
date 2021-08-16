@@ -1,5 +1,6 @@
 package com.datascience.shop.controller;
 
+import com.datascience.shop.config.ApplicationConfig;
 import com.datascience.shop.dao.impl.BasketDaoImpl;
 import com.datascience.shop.dao.impl.UserDaoImpl;
 import com.datascience.shop.entity.Basket;
@@ -17,9 +18,11 @@ import java.util.Iterator;
 import java.util.List;
 
 public class DeleteFromBasketController implements Controller {
+    ApplicationConfig applicationConfig=new ApplicationConfig();
+    private  UserService userService = new UserService(new UserDaoImpl(applicationConfig.getDataSource()));
 
     private final BasketService basketService = new BasketService(new BasketDaoImpl());
-    private final UserService userService = new UserService(new UserDaoImpl());
+
     private static final Logger logger = LoggerFactory.getLogger(DeleteFromBasketController.class);
 
     @Override

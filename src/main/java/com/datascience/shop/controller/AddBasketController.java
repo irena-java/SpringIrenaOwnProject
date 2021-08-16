@@ -1,5 +1,6 @@
 package com.datascience.shop.controller;
 
+import com.datascience.shop.config.ApplicationConfig;
 import com.datascience.shop.dao.impl.BasketDaoImpl;
 import com.datascience.shop.dao.impl.UserDaoImpl;
 import com.datascience.shop.entity.Basket;
@@ -17,7 +18,8 @@ import javax.servlet.http.HttpServletResponse;
 
 public class AddBasketController implements Controller {
 
-    private final UserService userService = new UserService(new UserDaoImpl());
+    ApplicationConfig applicationConfig=new ApplicationConfig();
+    private  UserService userService = new UserService(new UserDaoImpl(applicationConfig.getDataSource()));
     private final BasketService basketService = new BasketService(new BasketDaoImpl());
     private static final Logger logger = LoggerFactory.getLogger(AddBasketController.class);
     private ItemService itemService;
