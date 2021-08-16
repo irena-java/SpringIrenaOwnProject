@@ -11,9 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 public class ShowAllItemsController implements Controller {
-   // !  private ItemService itemService = new ItemService(new ItemDaoImpl());
     private ItemService itemService;
-    //= new ItemService();
     private static final Logger logger = LoggerFactory.getLogger(ShowAllItemsController.class);
 
     @Override

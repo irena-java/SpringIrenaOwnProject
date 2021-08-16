@@ -16,7 +16,6 @@ import java.sql.SQLException;
 
 @WebServlet("/datascience-shop/*")
 public class DispatcherServlet extends HttpServlet {
-
     private ControllerFactory controllerFactory;
     private static final Logger logger = LoggerFactory.getLogger(DispatcherServlet.class);
 

@@ -1,7 +1,7 @@
 package com.datascience.shop.controller;
 
-import com.datascience.shop.config.ApplicationConfig;
 import com.datascience.shop.dao.impl.BasketDaoImpl;
+import com.datascience.shop.dao.impl.ItemDaoImpl;
 import com.datascience.shop.dao.impl.UserDaoImpl;
 import com.datascience.shop.entity.Basket;
 import com.datascience.shop.entity.Item;
@@ -18,27 +18,15 @@ import javax.servlet.http.HttpServletResponse;
 
 public class AddBasketController implements Controller {
 
-    private  UserService userService = new UserService(new UserDaoImpl());
+    private UserService userService = new UserService(new UserDaoImpl());
     private final BasketService basketService = new BasketService(new BasketDaoImpl());
+    private ItemService itemService=new ItemService(new ItemDaoImpl());
     private static final Logger logger = LoggerFactory.getLogger(AddBasketController.class);
-    private ItemService itemService;
-
-
-    public AddBasketController(ItemService itemService) {
-        this.itemService = itemService;
-    }
-
-
 
     @Override
     public ControllerResultDto execute(HttpServletRequest req, HttpServletResponse resp) {
         try {
             String itemId = req.getParameter("itemId");
- /*убиваю эти строки при введении бина, меняю без параметров
-            ItemService itemService = new ItemService(new ItemDaoImpl());*/
-            //ItemService itemService;
-            //= new ItemService();
-
             Item item = itemService.findById(Integer.parseInt(itemId));
             Integer userId = (Integer) req.getSession().getAttribute("userId");
             User user = userService.findById(userId);

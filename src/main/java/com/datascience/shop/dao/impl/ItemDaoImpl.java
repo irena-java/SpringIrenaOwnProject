@@ -7,14 +7,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
-import javax.sql.DataSource;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
 import static com.datascience.shop.controller.LoginController.connectionPool;
-
-//import static com.datascience.shop.controller.LoginController.connectionPool;
 
 @Repository
 public class ItemDaoImpl implements ItemDao {
@@ -38,7 +35,6 @@ public class ItemDaoImpl implements ItemDao {
                     "LEFT JOIN job_types j ON i.job_type_id=j.id";
     private static final String SELECT_ALL = SELECT_TEMPLATE + " ORDER BY i.id";
     private static final String SELECT_BY_ID = SELECT_TEMPLATE + " WHERE i.id=?";
-
 
 
     public int getDataScienceSectionId(String dataScienceSection) throws DaoException {
@@ -116,9 +112,9 @@ public class ItemDaoImpl implements ItemDao {
              PreparedStatement preparedStatement = connection.prepareStatement("DELETE FROM items WHERE id=?")) {
             preparedStatement.setInt(1, item.getId());
             preparedStatement.execute();
-            logger.debug("Successfully deleted item with Id = "+item.getId());
+            logger.debug("Successfully deleted item with Id = " + item.getId());
         } catch (SQLException e) {
-            logger.error("Failed to delete item, itemId=" + item.getId()+ e);
+            logger.error("Failed to delete item, itemId=" + item.getId() + e);
             throw new DaoException("Failed to delete item");
         }
     }
@@ -166,8 +162,8 @@ public class ItemDaoImpl implements ItemDao {
             }
             return null;
         } catch (SQLException e) {
-            logger.error("Failed to find item by Id, itemId=" + id+ e);
-            throw new DaoException("Failed to find item by Id, itemId=" + id+ e);
+            logger.error("Failed to find item by Id, itemId=" + id + e);
+            throw new DaoException("Failed to find item by Id, itemId=" + id + e);
         }
     }
 }

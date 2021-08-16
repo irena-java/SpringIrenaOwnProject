@@ -17,6 +17,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 
 import static com.datascience.shop.controller.LoginController.connectionPool;
+
 @Repository
 public class BasketDaoImpl implements BasketDao {
     private static final Logger logger = LoggerFactory.getLogger(BasketDaoImpl.class);
@@ -71,7 +72,7 @@ public class BasketDaoImpl implements BasketDao {
             return basket;
         } catch (SQLException e) {
             logger.error("Failed to insert or update basket, basketId=" + basket.getId() + e);
-            throw new DaoException("Failed to insert or update basket."+e);
+            throw new DaoException("Failed to insert or update basket." + e);
         }
     }
 
@@ -82,7 +83,7 @@ public class BasketDaoImpl implements BasketDao {
             preparedStatement.execute();
         } catch (SQLException e) {
             logger.error("Failed to delete basket, basketId=" + basket.getId() + e);
-            throw new DaoException("Failed to delete basket"+e);
+            throw new DaoException("Failed to delete basket" + e);
         }
     }
 
@@ -93,7 +94,7 @@ public class BasketDaoImpl implements BasketDao {
             preparedStatement.execute();
         } catch (SQLException e) {
             logger.error("Failed to delete basket, basketId=" + basket.getId() + e);
-            throw new DaoException("Failed to delete basket"+e);
+            throw new DaoException("Failed to delete basket" + e);
         }
     }
 
@@ -105,7 +106,7 @@ public class BasketDaoImpl implements BasketDao {
             preparedStatement.execute();
         } catch (SQLException e) {
             logger.error("Failed to delete from basket item, itemId=" + itemId + e);
-           throw new DaoException("Failed to delete from basket item"+e);
+            throw new DaoException("Failed to delete from basket item" + e);
         }
     }
 
@@ -137,7 +138,7 @@ public class BasketDaoImpl implements BasketDao {
             return basket;
         } catch (SQLException e) {
             logger.error("Failed to find basket by user, userId=" + user.getId() + e);
-            throw new DaoException("Failed to find basket by user."+e);
+            throw new DaoException("Failed to find basket by user." + e);
         }
     }
 }

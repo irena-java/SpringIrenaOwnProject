@@ -1,6 +1,5 @@
 package com.datascience.shop.controller;
 
-import com.datascience.shop.dao.impl.UserDaoImpl;
 import com.datascience.shop.entity.User;
 import com.datascience.shop.service.ServiceException;
 import com.datascience.shop.service.UserService;
@@ -13,7 +12,6 @@ import java.util.List;
 
 public class ShowAllUsersController implements Controller {
     private UserService userService;
-            //= new UserService(new UserDaoImpl());
     private static final Logger logger = LoggerFactory.getLogger(ShowAllUsersController.class);
 
     @Override

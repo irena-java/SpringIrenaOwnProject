@@ -10,12 +10,13 @@ import org.springframework.stereotype.Service;
 
 import java.sql.Connection;
 import java.util.ArrayList;
+
 @Service
 public class BasketService {
     private final BasketDao basketDao;
     private static final Logger logger = LoggerFactory.getLogger(BasketService.class);
 
-    public BasketService(BasketDao basketDao){
+    public BasketService(BasketDao basketDao) {
         this.basketDao = basketDao;
     }
 
@@ -32,7 +33,7 @@ public class BasketService {
         try {
             Basket basket = basketDao.findById(user);
             return basket == null ? new Basket(null, user, new ArrayList<>()) : basket;
-        } catch (DaoException  e) {
+        } catch (DaoException e) {
             logger.error("Failed create or update basket by user - DaoException" + e);
             throw new ServiceException("failed to find or create user");
         }
@@ -52,7 +53,7 @@ public class BasketService {
             basketDao.deleteBasket(basket, connection);
         } catch (DaoException e) {
             logger.error("Failed to delete basket - DaoException" + e);
-            throw new ServiceException("Failed to delete basket"+e);
+            throw new ServiceException("Failed to delete basket" + e);
         }
     }
 }

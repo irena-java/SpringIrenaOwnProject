@@ -9,7 +9,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
-import javax.sql.DataSource;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -162,9 +161,9 @@ public class UserDaoImpl implements UserDao {
         }
     }
 
-    public List<User> findAll() throws DaoException{
+    public List<User> findAll() throws DaoException {
         List<User> users = new ArrayList<>();
-        try (Connection connection =connectionPool.get();
+        try (Connection connection = connectionPool.get();
              Statement statement = connection.createStatement();
              ResultSet resultSet = statement.executeQuery(SELECT_ALL)) {
             while (resultSet.next()) {
@@ -181,7 +180,7 @@ public class UserDaoImpl implements UserDao {
             logger.debug("зафиксили - был вызов findAll по юзерам - UserDaoImpl.findAll(), без ошибок");
         } catch (SQLException e) {
             logger.error("Failed to get all users");
-            throw new DaoException("Failed to get all users"+e);
+            throw new DaoException("Failed to get all users" + e);
         }
         return users;
     }

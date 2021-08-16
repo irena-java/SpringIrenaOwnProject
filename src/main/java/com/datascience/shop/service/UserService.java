@@ -54,10 +54,9 @@ public class UserService {
             try {
                 userDao.delete(user, connection);
             } catch (DaoException e) {
-                logger.error("Failed to delete user "+ user.getName() + e);
+                logger.error("Failed to delete user " + user.getName() + e);
                 throw new ServiceException("Failed to delete user");
             }
         }
     }
 }
-

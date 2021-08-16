@@ -19,17 +19,17 @@ public class ApplicationConfig {
     @Autowired
     Environment env;
 
-      @Bean
+    @Bean
     public DataSource getDataSource() {
-          PGSimpleDataSource pgSimpleDataSource= new PGSimpleDataSource();
-          pgSimpleDataSource.setUser(env.getProperty("datasource.username"));
-          pgSimpleDataSource.setUrl(env.getProperty("datasource.url"));
-          pgSimpleDataSource.setPassword(env.getProperty("datasource.password"));
-          try {
-              return pgSimpleDataSource.unwrap(DataSource.class);
-          } catch (Exception e) {
-              e.printStackTrace();
-          }
-          return null;
-      }
+        PGSimpleDataSource pgSimpleDataSource = new PGSimpleDataSource();
+        pgSimpleDataSource.setUser(env.getProperty("datasource.username"));
+        pgSimpleDataSource.setUrl(env.getProperty("datasource.url"));
+        pgSimpleDataSource.setPassword(env.getProperty("datasource.password"));
+        try {
+            return pgSimpleDataSource.unwrap(DataSource.class);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 }

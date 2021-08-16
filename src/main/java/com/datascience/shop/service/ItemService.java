@@ -12,35 +12,12 @@ import java.util.List;
 
 @Service
 public class ItemService {
-    //private final ItemDao itemDao;
-
-    private  final ItemDao itemDao;
-    //=new ItemDaoImpl()    ;
-
+    private final ItemDao itemDao;
     private static final Logger logger = LoggerFactory.getLogger(ItemService.class);
 
-    //@Autowired
     public ItemService(ItemDao itemDao) {
         this.itemDao = itemDao;
     }
-
-
-
-//    xml ругался, что нет конструктора. добавила без параметров
- //    public ItemService(){
-  //      this.itemDao=new ItemDaoImpl();    }
-
-/*    public void setItemDao(ItemDao itemDao) {
-        this.itemDao = itemDao;
-    }
-*/
-
-
-  /*убиваю эти строки при введении бина/ УБИЛА ЕЩЕ РАЗ
-      public ItemService(ItemDao itemDao) {
-        this.itemDao = itemDao;
-    }
-*/
 
     public List<Item> findAll() throws ServiceException {
         try {
@@ -69,10 +46,8 @@ public class ItemService {
                 itemDao.delete(item);
             } catch (DaoException e) {
                 logger.error("Failed to delete item - DaoException");
-                throw new ServiceException("Failed to delete item"+e);
+                throw new ServiceException("Failed to delete item" + e);
             }
         }
     }
-
-
 }

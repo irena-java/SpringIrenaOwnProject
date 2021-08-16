@@ -1,7 +1,6 @@
 package com.datascience.shop.connectionPool;
 
 import com.datascience.shop.config.ApplicationConfig;
-import com.datascience.shop.utils.PostgresUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
@@ -22,10 +21,9 @@ public class ConnectionPool {
     private int max;
     private int current;
     private static final Logger logger = LoggerFactory.getLogger(ConnectionPool.class);
-    private static AnnotationConfigApplicationContext ctx=new AnnotationConfigApplicationContext(ApplicationConfig.class);
+    private static AnnotationConfigApplicationContext ctx = new AnnotationConfigApplicationContext(ApplicationConfig.class);
 
-
-        public void init() throws ConnectionPoolException{
+    public void init() throws ConnectionPoolException {
         try {
             File file = new File("C:/Users/Ira/IdeaProjects/own_proect/src/main/resources/application.properties");
             Properties properties = new Properties();
@@ -42,7 +40,7 @@ public class ConnectionPool {
         }
     }
 
-    public Connection get() throws ConnectionPoolException{
+    public Connection get() throws ConnectionPoolException {
         if (queue.isEmpty() && current <= max) {
             addNewConnectionToQueue();
         }
@@ -57,17 +55,9 @@ public class ConnectionPool {
         return queue.poll();
     }
 
-    private void addNewConnectionToQueue() throws ConnectionPoolException{
-//        DataSource dataSource;
+    private void addNewConnectionToQueue() throws ConnectionPoolException {
         try {
-            //ApplicationConfig applicationConfig=new ApplicationConfig();
-            //DataSource dataSource=applicationConfig.getDataSource();
-            //Connection connection = dataSource.getConnection();
-
-
-            Connection connection=ctx.getBean(DataSource.class).getConnection();
-
-            //Connection connection = PostgresUtils.getConnection();
+            Connection connection = ctx.getBean(DataSource.class).getConnection();
             queue.add(new ConnectionWrapper(connection));
         } catch (Exception e) {
             logger.error("Failed to add new connection to queue" + e);
@@ -76,7 +66,6 @@ public class ConnectionPool {
     }
 
     public class ConnectionWrapper implements Connection {
-
         private final Connection connection;
 
         public ConnectionWrapper(Connection connection) {

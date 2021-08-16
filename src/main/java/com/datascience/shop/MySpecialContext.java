@@ -2,8 +2,6 @@ package com.datascience.shop;
 
 import com.datascience.shop.connectionPool.ConnectionPool;
 
-import javax.sql.DataSource;
-
 public class MySpecialContext {
 
     private static ConnectionPool connectionPool;

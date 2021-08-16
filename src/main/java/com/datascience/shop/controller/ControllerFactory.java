@@ -1,8 +1,5 @@
 package com.datascience.shop.controller;
 
-import com.datascience.shop.config.ApplicationConfig;
-import com.datascience.shop.dao.impl.ItemDaoImpl;
-import com.datascience.shop.service.ItemService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -10,8 +7,6 @@ import javax.servlet.http.HttpServletRequest;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
-
-
 
 public class ControllerFactory {
     private static final Logger logger = LoggerFactory.getLogger(DeleteUserController.class);
@@ -23,19 +18,7 @@ public class ControllerFactory {
         controllerMap.put("GET/main", new ShowPageController("main"));
         controllerMap.put("GET/client", new ShowPageController("login"));
         controllerMap.put("GET/items", new ShowAllItemsController());
-
-        //?? controllerMap.put("GET/addToBasket", new AddBasketController());
-        try {
-            ApplicationConfig applicationConfig=new ApplicationConfig();
-            controllerMap.put("GET/addToBasket", new AddBasketController(new ItemService(new ItemDaoImpl())));
-        }
-        catch (Exception e) {
-            logger.error("Failed dataSource" + e);
-            throw new SQLException("Failed dataSource");
-        }
-
-
-
+        controllerMap.put("GET/addToBasket", new AddBasketController());
         controllerMap.put("GET/basket", new ShowBasketController());
         controllerMap.put("GET/deleteFromBasket", new DeleteFromBasketController());
         controllerMap.put("GET/deleteUser", new DeleteUserController());
@@ -44,7 +27,7 @@ public class ControllerFactory {
         controllerMap.put("POST/login", new LoginController());
     }
 
-    public Controller getController(HttpServletRequest request) throws SQLException{
+    public Controller getController(HttpServletRequest request) throws SQLException {
         if (controllerMap.isEmpty()) {
             try {
                 init();
