@@ -5,6 +5,7 @@ import com.datascience.shop.config.ApplicationConfig;
 import com.datascience.shop.entity.Basket;
 import com.datascience.shop.entity.Item;
 import com.datascience.shop.entity.User;
+import com.datascience.shop.repository.UserRepository;
 import com.datascience.shop.service.BasketService;
 import com.datascience.shop.service.ItemService;
 import com.datascience.shop.service.ServiceException;
@@ -19,6 +20,11 @@ public class SpringMain {
         try (AnnotationConfigApplicationContext ctx = new AnnotationConfigApplicationContext(ApplicationConfig.class)) {
             final String[] beanDefinitionNames = ctx.getBeanDefinitionNames();
             System.out.println(Arrays.toString(beanDefinitionNames));
+
+            final UserRepository userRepository=ctx.getBean(UserRepository.class);
+            final List<User> allUsers=userRepository.findAll();
+            allUsers.forEach(System.out::println);
+
 
             final ItemService itemService = ctx.getBean(ItemService.class);
             final List<Item> allItems = itemService.findAll();

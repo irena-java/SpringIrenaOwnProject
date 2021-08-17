@@ -7,12 +7,14 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 import javax.sql.DataSource;
 import java.sql.SQLException;
 
 @Configuration
 @ComponentScan(basePackages = "com.datascience.shop")
+@EnableJpaRepositories (basePackages = "com.datascience.shop.repository")
 @PropertySource("classpath:application.properties")
 
 public class ApplicationConfig {

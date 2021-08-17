@@ -8,6 +8,7 @@ import org.apache.commons.codec.digest.DigestUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -147,7 +148,7 @@ public class UserDaoImpl implements UserDao {
             throw new DaoException("Failed to find user by Id. " + e);
         }
     }
-
+@Transactional
     public void delete(User user, Connection connection) throws DaoException {
         try (PreparedStatement preparedStatement = connection.prepareStatement(DELETE_USER_BY_ID)) {
             preparedStatement.setInt(1, user.getId());

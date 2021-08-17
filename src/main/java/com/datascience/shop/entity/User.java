@@ -1,11 +1,20 @@
-package com.datascience.shop.entity;
+   package com.datascience.shop.entity;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
+@Entity
+@Table(name="users")
 public class User extends BaseEntity {
     private String name;
     private UserRole userRole;
     private String clientInn;
     private String country;
+
+    @Column(name="contact_info")
     private String contactInfo;
+
     private String password;
 
     public User() {
