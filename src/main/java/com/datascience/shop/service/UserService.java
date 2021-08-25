@@ -6,6 +6,7 @@ import com.datascience.shop.entity.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.Connection;
 import java.util.List;
@@ -47,6 +48,7 @@ public class UserService {
         }
     }
 
+    @Transactional
     public void delete(User user, Connection connection) throws ServiceException {
         if (user == null) {
             throw new ServiceException("fdf");

@@ -125,14 +125,23 @@ public class ItemDaoImpl implements ItemDao {
              Statement statement = connection.createStatement();
              ResultSet resultSet = statement.executeQuery(SELECT_ALL)) {
             while (resultSet.next()) {
-                Item item = new Item();
+                Item item = Item.builder()
+                        .dataScienceDirection(resultSet.getString(3))
+                        .dataScienceSection(resultSet.getString(2))
+                        .jobType(resultSet.getString(4))
+                        .startDate(resultSet.getDate(5).toLocalDate())
+                        .deadline(resultSet.getDate(6).toLocalDate())
+                        .price(resultSet.getDouble(7))
+                        .build();
                 item.setId(resultSet.getInt(1));
-                item.setDataScienceSection(resultSet.getString(2));
-                item.setDataScienceDirection(resultSet.getString(3));
-                item.setJobType(resultSet.getString(4));
-                item.setStartDate(resultSet.getDate(5).toLocalDate());
-                item.setDeadline(resultSet.getDate(6).toLocalDate());
-                item.setPrice(resultSet.getDouble(7));
+
+//                item.setId(resultSet.getInt(1));
+//                item.setDataScienceSection(resultSet.getString(2));
+//                item.setDataScienceDirection(resultSet.getString(3));
+//                item.setJobType(resultSet.getString(4));
+//                item.setStartDate(resultSet.getDate(5).toLocalDate());
+//                item.setDeadline(resultSet.getDate(6).toLocalDate());
+//                item.setPrice(resultSet.getDouble(7));
                 items.add(item);
             }
             logger.debug("successfully find all item.");
@@ -150,14 +159,22 @@ public class ItemDaoImpl implements ItemDao {
             preparedStatement.setInt(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
-                Item item = new Item();
+                Item item = Item.builder()
+                        .dataScienceSection(resultSet.getString(2))
+                        .dataScienceDirection(resultSet.getString(3))
+                        .jobType(resultSet.getString(4))
+                        .startDate(resultSet.getDate(5).toLocalDate())
+                        .deadline(resultSet.getDate(6).toLocalDate())
+                        .price(resultSet.getDouble(7))
+                        .build();
                 item.setId(resultSet.getInt(1));
-                item.setDataScienceSection(resultSet.getString(2));
-                item.setDataScienceDirection(resultSet.getString(3));
-                item.setJobType(resultSet.getString(4));
-                item.setStartDate(resultSet.getDate(5).toLocalDate());
-                item.setDeadline(resultSet.getDate(6).toLocalDate());
-                item.setPrice(resultSet.getDouble(7));
+                                            //                item.setId(resultSet.getInt(1));
+//                item.setDataScienceSection(resultSet.getString(2));
+//                item.setDataScienceDirection(resultSet.getString(3));
+//                item.setJobType(resultSet.getString(4));
+//                item.setStartDate(resultSet.getDate(5).toLocalDate());
+//                item.setDeadline(resultSet.getDate(6).toLocalDate());
+//                item.setPrice(resultSet.getDouble(7));
                 return item;
             }
             return null;

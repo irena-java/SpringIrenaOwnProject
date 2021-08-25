@@ -9,7 +9,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class ControllerFactory {
-    private static final Logger logger = LoggerFactory.getLogger(DeleteUserController.class);
+    //private static final Logger logger = LoggerFactory.getLogger(DeleteUserController.class);
     private Map<String, Controller> controllerMap = new HashMap<>();
 
     private void init() throws SQLException {
@@ -18,10 +18,10 @@ public class ControllerFactory {
         controllerMap.put("GET/main", new ShowPageController("main"));
         controllerMap.put("GET/client", new ShowPageController("login"));
         controllerMap.put("GET/items", new ShowAllItemsController());
-        controllerMap.put("GET/addToBasket", new AddBasketController());
-        controllerMap.put("GET/basket", new ShowBasketController());
-        controllerMap.put("GET/deleteFromBasket", new DeleteFromBasketController());
-        controllerMap.put("GET/deleteUser", new DeleteUserController());
+//        controllerMap.put("GET/addToBasket", new AddBasketController());
+  //      controllerMap.put("GET/basket", new ShowBasketController());
+    //    controllerMap.put("GET/deleteFromBasket", new DeleteFromBasketController());
+      //  controllerMap.put("GET/deleteUser", new DeleteUserController());
         controllerMap.put("GET/users", new ShowAllUsersController());
         controllerMap.put("GET/rates", new ShowRatesController());
         controllerMap.put("POST/login", new LoginController());
@@ -32,7 +32,7 @@ public class ControllerFactory {
             try {
                 init();
             } catch (SQLException e) {
-                logger.error("Failed dataSource" + e);
+      //          logger.error("Failed dataSource" + e);
                 throw new SQLException("Failed dataSource");
             }
         }

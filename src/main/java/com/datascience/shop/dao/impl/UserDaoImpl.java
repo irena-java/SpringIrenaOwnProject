@@ -111,13 +111,24 @@ public class UserDaoImpl implements UserDao {
             ResultSet resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
                 int userId = resultSet.getInt(1);
-                String name = resultSet.getString(2);
-                UserRole userRole = UserRole.valueOf(resultSet.getString(3));
-                String clientInn = resultSet.getString(4);
-                String country = resultSet.getString(5);
-                String contactInfo = resultSet.getString(6);
-                String password = resultSet.getString(7);
-                return new User(userId, name, userRole, clientInn, country, contactInfo, password);
+//                String name = resultSet.getString(2);
+//                UserRole userRole = UserRole.valueOf(resultSet.getString(3));
+//                String clientInn = resultSet.getString(4);
+//                String country = resultSet.getString(5);
+//                String contactInfo = resultSet.getString(6);
+//                String password = resultSet.getString(7);
+                User user= User.builder()
+                        .name(resultSet.getString(2))
+                        .userRole(UserRole.valueOf(resultSet.getString(3)))
+                        .clientInn(resultSet.getString(4))
+                        .country(resultSet.getString(5))
+                        .contactInfo(resultSet.getString(6))
+                        .password(resultSet.getString(7))
+                        .build();
+                        //(userId, name, userRole, clientInn, country, contactInfo, password);
+                user.setId(resultSet.getInt(1));
+                return user;
+
             }
             return null;
         } catch (SQLException e) {
@@ -134,13 +145,24 @@ public class UserDaoImpl implements UserDao {
             ResultSet resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
                 int userId = resultSet.getInt(1);
-                String name = resultSet.getString(2);
-                UserRole userRole = UserRole.valueOf(resultSet.getString(3));
-                String clientInn = resultSet.getString(4);
-                String country = resultSet.getString(5);
-                String contactInfo = resultSet.getString(6);
-                String password = resultSet.getString(7);
-                return new User(userId, name, userRole, clientInn, country, contactInfo, password);
+                //return
+                User user=User.builder()
+                        .name(resultSet.getString(2))
+                        .userRole(UserRole.valueOf(resultSet.getString(3)))
+                        .clientInn(resultSet.getString(4))
+                        .country(resultSet.getString(5))
+                        .contactInfo(resultSet.getString(6))
+                        .password(resultSet.getString(7))
+                        .build();
+                user.setId(resultSet.getInt(1));
+                return user;
+//                String name = resultSet.getString(2);
+//                UserRole userRole = UserRole.valueOf(resultSet.getString(3));
+//                String clientInn = resultSet.getString(4);
+//                String country = resultSet.getString(5);
+//                String contactInfo = resultSet.getString(6);
+//                String password = resultSet.getString(7);
+//                return new User(userId, name, userRole, clientInn, country, contactInfo, password);
             }
             return null;
         } catch (SQLException e) {
@@ -168,15 +190,27 @@ public class UserDaoImpl implements UserDao {
              Statement statement = connection.createStatement();
              ResultSet resultSet = statement.executeQuery(SELECT_ALL)) {
             while (resultSet.next()) {
-                User user = new User();
+//                User user = new User();
+//                user.setId(resultSet.getInt(1));
+//                user.setName(resultSet.getString(2));
+//                user.setUserRole(UserRole.valueOf(resultSet.getString(3)));
+//                user.setClientInn(resultSet.getString(4));
+//                user.setCountry(resultSet.getString(5));
+//                user.setContactInfo(resultSet.getString(6));
+//                user.setPassword(resultSet.getString(7));
+
+                User user=User.builder()
+                        .name(resultSet.getString(2))
+                        .userRole(UserRole.valueOf(resultSet.getString(3)))
+                        .clientInn(resultSet.getString(4))
+                        .country(resultSet.getString(5))
+                        .contactInfo(resultSet.getString(6))
+                        .password(resultSet.getString(7))
+                        .build();
                 user.setId(resultSet.getInt(1));
-                user.setName(resultSet.getString(2));
-                user.setUserRole(UserRole.valueOf(resultSet.getString(3)));
-                user.setClientInn(resultSet.getString(4));
-                user.setCountry(resultSet.getString(5));
-                user.setContactInfo(resultSet.getString(6));
-                user.setPassword(resultSet.getString(7));
+
                 users.add(user);
+
             }
             logger.debug("зафиксили - был вызов findAll по юзерам - UserDaoImpl.findAll(), без ошибок");
         } catch (SQLException e) {
