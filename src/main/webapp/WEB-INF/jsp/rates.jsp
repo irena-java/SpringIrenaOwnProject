@@ -1,7 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="java.util.List" %>
-<%--@elvariable id="rates" type="com.datascience.shop.Rates"--%>
+<%--@elvariable id="rates" type="com.datascience.shop.Rate"--%>
 <html>
 <head>
     <title>Rates </title>

@@ -111,3 +111,128 @@ CREATE TABLE payments_calendar
   "sum" money NOT NULL,
   type_payments_id integer REFERENCES types_payments(id));
 
+=======================
+create table if not exists countries
+(
+    id serial
+    constraint countries_pkey
+    primary key,
+    country varchar
+    constraint countries_country_key
+    unique
+);
+
+alter table countries owner to postgres;
+
+create table if not exists user_roles
+(
+    id serial
+    constraint user_roles_pkey
+    primary key,
+    user_role varchar
+    constraint user_roles_user_role_key
+    unique
+);
+
+alter table user_roles owner to postgres;
+
+create table if not exists data_science_sections
+(
+    id serial
+    constraint data_science_sections_pkey
+    primary key,
+    data_science_section varchar
+    constraint data_science_sections_data_science_section_key
+    unique
+);
+
+alter table data_science_sections owner to postgres;
+
+create table if not exists data_science_directions
+(
+    id serial
+    constraint data_science_directions_pkey
+    primary key,
+    data_science_direction varchar
+    constraint data_science_directions_data_science_direction_key
+    unique
+);
+
+alter table data_science_directions owner to postgres;
+
+create table if not exists job_types
+(
+    id serial
+    constraint job_types_pkey
+    primary key,
+    job_type varchar
+    constraint job_types_job_type_key
+    unique
+);
+
+alter table job_types owner to postgres;
+
+create table if not exists items
+(
+    id serial
+    constraint items_pkey
+    primary key,
+    data_science_section_id integer
+    constraint items_data_science_section_id_fkey
+    references data_science_sections,
+    data_science_direction_id integer
+    constraint items_data_science_direction_id_fkey
+    references data_science_directions,
+    job_type_id integer
+    constraint items_job_type_id_fkey
+    references job_types,
+    start_date date,
+    deadline date,
+    price numeric
+);
+
+alter table items owner to postgres;
+
+create table if not exists users
+(
+    id serial
+    constraint users_pkey
+    primary key,
+    name varchar,
+    user_role_id integer
+    constraint users_user_role_id_fkey
+    references user_roles,
+    client_inn varchar,
+    country_id integer
+    constraint my_foreign_key_country_id
+    references countries,
+    contact_info varchar(30),
+    password varchar
+    );
+
+alter table users owner to postgres;
+
+create table if not exists baskets
+(
+    id serial
+    constraint baskets_pkey
+    primary key,
+    user_id integer
+    constraint my_foreign_key_user_id
+    references users,
+    item_id integer
+    constraint my_foreign_key_item_id
+    references items
+);
+
+alter table baskets owner to postgres;
+
+create index if not exists fki_my_foreign_key_user_id
+    on baskets (user_id);
+
+create index if not exists fki_my_foreign_key_item_id
+    on baskets (item_id);
+
+create index if not exists fki_my_foreign_key_country_id
+    on users (country_id);
+

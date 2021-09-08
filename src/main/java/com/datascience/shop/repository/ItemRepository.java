@@ -9,16 +9,15 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface ItemRepository extends JpaRepository<Item,Integer>{
+public interface ItemRepository extends JpaRepository<Item, Integer> {
 
-    @Query(value="select i from Item i")
+    @Query(value = "select i from Item i")
     List<Item> allItem();
 
-
     List<Item> findAllByPriceIs(Double price);
+
     List<Item> findAllByUsers(User user);
 
     @Query("select u from User u where size(u.items)>0")
     List<User> basketInUser();
-
 }

@@ -2,6 +2,7 @@ package com.datascience.shop.dao.impl;
 
 import com.datascience.shop.dao.DaoException;
 import com.datascience.shop.dao.UserDao;
+import com.datascience.shop.entity.Country;
 import com.datascience.shop.entity.User;
 import com.datascience.shop.entity.UserRole;
 import org.apache.commons.codec.digest.DigestUtils;
@@ -46,8 +47,8 @@ public class UserDaoImpl implements UserDao {
             preparedStatement.setString(1, user.getName());
             preparedStatement.setInt(2, getRoleId(user.getUserRole()));
             preparedStatement.setString(3, user.getClientInn());
-            if (getCountryId(user.getCountry()) != -1) {
-                preparedStatement.setInt(4, getCountryId(user.getCountry()));
+            if (getCountryId(user.getCountry().name()) != -1) {
+                preparedStatement.setInt(4, getCountryId(user.getCountry().name()));
             } else {
                 throw new DaoException("такой страны нет, нужно дозаполнить справочник стран");
             }
@@ -121,7 +122,7 @@ public class UserDaoImpl implements UserDao {
                         .name(resultSet.getString(2))
                         .userRole(UserRole.valueOf(resultSet.getString(3)))
                         .clientInn(resultSet.getString(4))
-                        .country(resultSet.getString(5))
+                        .country(Country.valueOf(resultSet.getString(5)))
                         .contactInfo(resultSet.getString(6))
                         .password(resultSet.getString(7))
                         .build();
@@ -150,7 +151,7 @@ public class UserDaoImpl implements UserDao {
                         .name(resultSet.getString(2))
                         .userRole(UserRole.valueOf(resultSet.getString(3)))
                         .clientInn(resultSet.getString(4))
-                        .country(resultSet.getString(5))
+                        .country(Country.valueOf(resultSet.getString(5)))
                         .contactInfo(resultSet.getString(6))
                         .password(resultSet.getString(7))
                         .build();
@@ -203,7 +204,7 @@ public class UserDaoImpl implements UserDao {
                         .name(resultSet.getString(2))
                         .userRole(UserRole.valueOf(resultSet.getString(3)))
                         .clientInn(resultSet.getString(4))
-                        .country(resultSet.getString(5))
+                        .country(Country.valueOf(resultSet.getString(5)))
                         .contactInfo(resultSet.getString(6))
                         .password(resultSet.getString(7))
                         .build();
