@@ -28,7 +28,6 @@ public class UserController {
     private final UserServise userServise;
 
     @RequestMapping(value = "/get-test", method = RequestMethod.GET)
-
     public String getSomeString() {
         return "test";
     }

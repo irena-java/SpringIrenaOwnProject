@@ -16,7 +16,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Objects;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -25,24 +24,19 @@ public class UserServiceImpl implements UserServise {
 
     @Override
     public User getById(Integer id) {
-        //userRepository.getOne(1);
-//        Optional<User> user=userRepository.findById(id)
         User user=userRepository.findById(id)
                 .orElseThrow(()->{
                     throw new RuntimeException("не удалось найти юзера с Id "+id);
                 });
-
         return user;
     }
 
     @Override
     public List<User> getAll() {
         return userRepository.findAll();
-
     }
 
     public Page<User> getPage(String name,Pageable pageable) {
-        //final Page<User> page=userRepository.findAll(pageable);
         return userRepository.findAllByNameContaining(name,pageable);
     }
 
@@ -81,12 +75,6 @@ public class UserServiceImpl implements UserServise {
     @Override
     public List<User> getByName(String name) {
         List<User> users=userRepository.findAllByNameIs(name);
-//                .orElseThrow(()->{
-//                    throw new RuntimeException("не удалось найти юзера с Id "+name);
-//                });
-
         return users;
     }
-
-
 }

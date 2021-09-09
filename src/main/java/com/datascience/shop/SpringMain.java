@@ -4,9 +4,8 @@ import com.datascience.shop.config.ApplicationConfig;
 import com.datascience.shop.entity.Item;
 import com.datascience.shop.entity.User;
 import com.datascience.shop.repository.UserRepository;
-import com.datascience.shop.service.ItemService;
 import com.datascience.shop.service.ServiceException;
-import com.datascience.shop.service.UserService;
+import com.datascience.shop.service.impl.UserServiceImpl;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import java.util.Arrays;
@@ -21,14 +20,6 @@ public class SpringMain {
             final UserRepository userRepository=ctx.getBean(UserRepository.class);
             final List<User> allUsers=userRepository.findAll();
             allUsers.forEach(System.out::println);
-
-            final ItemService itemService = ctx.getBean(ItemService.class);
-            final List<Item> allItems = itemService.findAll();
-            System.out.println("Тестирование itemService.findAll()- all items: " + allItems.toString());
-
-            final UserService userService = ctx.getBean(UserService.class);
-            final User userRrr = userService.findByUserName("rrr");
-            System.out.println("Тестирование userService.findByUserName для юзера rrr: " + userRrr);
         }
     }
 }
