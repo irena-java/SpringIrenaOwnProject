@@ -103,7 +103,6 @@ public class UserController {
     @PostMapping(path = "/create-user-extension", consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<UserExtentionDTO> createUserExtensionDTO(
             @RequestBody UserExtentionDTO userExtentionDTO) {
-
         return new ResponseEntity<>(userExtentionDTO, HttpStatus.OK);
     }
 

@@ -2,6 +2,8 @@ package com.datascience.shop.repository;
 
 import com.datascience.shop.entity.Item;
 import com.datascience.shop.entity.User;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -20,4 +22,6 @@ public interface ItemRepository extends JpaRepository<Item, Integer> {
 
     @Query("select u from User u where size(u.items)>0")
     List<User> basketInUser();
+
+    Page<Item> findAllByDataScienceSectionContaining(String dataScienceSection, Pageable pageable);
 }
