@@ -27,11 +27,7 @@ import java.util.stream.Collectors;
 @RequestMapping(value = "/rest/users777", produces = MediaType.APPLICATION_JSON_VALUE)
 @RequiredArgsConstructor
 public class UserExtentionController {
-
         private final UserServise userServise;
-
-
-
     }
 
 

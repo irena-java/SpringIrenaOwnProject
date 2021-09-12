@@ -62,7 +62,7 @@ public class UserServiceImpl implements UserServise {
     }
 
     @Override
-    public void update(Integer id,UserDTO userDTO) throws ServiceException {
+    public void update(Integer id, UserDTO userDTO) throws ServiceException {
         if(!userRepository.existsById(id)){
             throw new ServiceException("такого юзера нет");
         }

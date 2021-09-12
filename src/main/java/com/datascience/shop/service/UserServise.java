@@ -13,6 +13,6 @@ public interface UserServise {
     Page<User> getPage(String name,Pageable pageable);
     User create(UserDTO userDTO);
     void delete(Integer id) throws ServiceException;
-    void update(Integer id,UserDTO userDTO) throws ServiceException;
+    void update(Integer id, UserDTO userDTO) throws ServiceException;
     List<User> getByName(String name);
 }

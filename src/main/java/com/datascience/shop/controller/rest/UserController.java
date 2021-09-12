@@ -91,7 +91,7 @@ public class UserController {
         userServise.delete(id);
     }
 
-    @PutMapping("/{id}")
+    @PutMapping(path = "/{id}",consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void update(
             @PathVariable Integer id,
