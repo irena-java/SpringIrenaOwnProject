@@ -1,6 +1,7 @@
 package com.datascience.shop.service.impl;
 
 import com.datascience.shop.dto.UserDTO;
+import com.datascience.shop.entity.Item;
 import com.datascience.shop.entity.User;
 import com.datascience.shop.repository.UserRepository;
 import com.datascience.shop.service.ServiceException;
@@ -12,7 +13,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 
 import java.util.List;
 import java.util.Objects;
@@ -76,5 +76,11 @@ public class UserServiceImpl implements UserServise {
     public List<User> getByName(String name) {
         List<User> users=userRepository.findAllByNameIs(name);
         return users;
+    }
+
+    @Override
+    public List<Item> getItemsOfUser(String name) {
+        List<Item> items=userRepository.getAllItemsOfUser(name);
+        return items;
     }
 }

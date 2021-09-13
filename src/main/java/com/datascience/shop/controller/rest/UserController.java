@@ -1,7 +1,9 @@
 package com.datascience.shop.controller.rest;
 
+import com.datascience.shop.dto.ItemDTO;
 import com.datascience.shop.dto.UserDTO;
 import com.datascience.shop.dto.UserExtentionDTO;
+import com.datascience.shop.entity.Item;
 import com.datascience.shop.entity.User;
 import com.datascience.shop.service.ServiceException;
 import com.datascience.shop.service.UserServise;
@@ -25,7 +27,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 @PreAuthorize("hasAnyRole('USER','ADMIN')")
 public class UserController {
-    private final UserServise userServise;
+    private final UserServise userService;
 
     @RequestMapping(value = "/get-test", method = RequestMethod.GET)
     public String getSomeString() {
@@ -34,7 +36,7 @@ public class UserController {
 
     @GetMapping(value = "/get-one")
     public ResponseEntity<UserDTO> getById(@RequestParam Integer id) {
-        final User user = userServise.getById(id);
+        final User user = userService.getById(id);
         UserDTO userDTO = new UserDTO();
         BeanUtils.copyProperties(user, userDTO);
         return new ResponseEntity<>(userDTO, HttpStatus.OK);
@@ -42,7 +44,7 @@ public class UserController {
 
     @GetMapping
     public ResponseEntity<List<UserDTO>> getAll() {
-        final List<User> users = userServise.getAll();
+        final List<User> users = userService.getAll();
         List<UserDTO> usersDTO = users.stream()
                 .map(user -> {
                     UserDTO userDTO = new UserDTO();
@@ -55,7 +57,7 @@ public class UserController {
 
     @GetMapping(value = "/get-one/{id}")
     public ResponseEntity<UserDTO> getById2(@PathVariable Integer id) {
-        final User user = userServise.getById(id);
+        final User user = userService.getById(id);
         UserDTO userDTO = new UserDTO();
         BeanUtils.copyProperties(user, userDTO);
         return new ResponseEntity<>(userDTO, HttpStatus.OK);
@@ -67,7 +69,7 @@ public class UserController {
             @RequestParam int pageSize,
             @RequestParam int pageNumber) {
         final PageRequest pageRequest = PageRequest.of(pageNumber, pageSize);
-        final Page<User> pageUser = userServise.getPage(name, pageRequest);
+        final Page<User> pageUser = userService.getPage(name, pageRequest);
         final Page<UserDTO> pageUserDTO = pageUser.map(user -> {
             UserDTO userDTO = new UserDTO();
             BeanUtils.copyProperties(user, userDTO);
@@ -80,7 +82,7 @@ public class UserController {
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<UserDTO> create(
             @RequestBody UserDTO userDTO) {
-        final User user = userServise.create(userDTO);
+        final User user = userService.create(userDTO);
         userDTO.setId(user.getId());
         return new ResponseEntity<>(userDTO, HttpStatus.OK);
     }
@@ -88,7 +90,7 @@ public class UserController {
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void delete(@PathVariable Integer id) throws ServiceException {
-        userServise.delete(id);
+        userService.delete(id);
     }
 
     @PutMapping(path = "/{id}",consumes = MediaType.APPLICATION_JSON_VALUE)
@@ -96,7 +98,7 @@ public class UserController {
     public void update(
             @PathVariable Integer id,
             @RequestBody UserDTO userDTO) throws ServiceException {
-        userServise.update(id, userDTO);
+        userService.update(id, userDTO);
     }
 
     @PreAuthorize("hasRole('ADMIN')")
@@ -111,7 +113,7 @@ public class UserController {
             @RequestParam String name,
             @RequestParam(required = false, defaultValue = "reer") String trash
     ) {
-        final List<User> users = userServise.getByName(name);
+        final List<User> users = userService.getByName(name);
         List<UserDTO> usersDTO = users.stream()
                 .map(user -> {
                     UserDTO userDTO = new UserDTO();
@@ -121,4 +123,19 @@ public class UserController {
                 .collect(Collectors.toList());
         return new ResponseEntity<>(usersDTO, HttpStatus.OK);
     }
+
+    @GetMapping(value = "/get-items-of-user")
+    public ResponseEntity<List<ItemDTO>> getItemsOfUser(@RequestParam String name) {
+        final List<Item> items = userService.getItemsOfUser(name);
+        List<ItemDTO> itemsDTO = items.stream()
+                .map(item -> {
+                    ItemDTO itemDTO = new ItemDTO();
+                    BeanUtils.copyProperties(item, itemDTO);
+                    return itemDTO;
+                })
+                .collect(Collectors.toList());
+        return new ResponseEntity<>(itemsDTO, HttpStatus.OK);
+    }
+
+
 }

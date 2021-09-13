@@ -8,6 +8,8 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class UserExtentionDTO {
-    private UserDTO userDTO;
-    private ItemDTO itemDTO;
+//    private UserDTO userDTO;
+//    private ItemDTO itemDTO;
+//c этими классами не получится, т.к.они и так видят друг друга вместе, через many to many,
+//todo потом создать новый класс и попробовать композицию в контроллере
 }

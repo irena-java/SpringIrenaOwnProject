@@ -25,4 +25,7 @@ public interface UserRepository extends JpaRepository<User, Integer> {
     List<Item> basketOfUser();
 
     Page<User> findAllByNameContaining(String name, Pageable pageable);
+
+    @Query(value = "select distinct u.items from User u join  u.items where u.name=:user_param")
+    List<Item> getAllItemsOfUser(@Param("user_param") String name);
 }

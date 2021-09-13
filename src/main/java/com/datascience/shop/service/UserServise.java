@@ -1,6 +1,7 @@
 package com.datascience.shop.service;
 
 import com.datascience.shop.dto.UserDTO;
+import com.datascience.shop.entity.Item;
 import com.datascience.shop.entity.User;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -15,4 +16,5 @@ public interface UserServise {
     void delete(Integer id) throws ServiceException;
     void update(Integer id, UserDTO userDTO) throws ServiceException;
     List<User> getByName(String name);
+    List<Item> getItemsOfUser(String name);
 }
